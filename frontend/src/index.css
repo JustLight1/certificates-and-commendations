@@ -1,0 +1,46 @@
+/* Vendor */
+@import url('./vendor/normalize.css');
+
+/*!* Fonts *!*/
+@import url('./vendor/fonts/fonts.css');
+
+/* App */
+@import url('./components/App/App.css');
+
+/* PageEditor */
+@import url('./components/PageEditor/PageEditor.css');
+
+/* SidebarEditor */
+@import url('./components/PageEditor/SidebarEditor/SidebarEditor.css');
+
+/* TemplatesPanel */
+@import url('./components/PageEditor/SidebarEditor/TemplatesPanel/TemplatesPanel.css');
+
+/* TextPanel */
+@import url('./components/PageEditor/SidebarEditor/TextPanel/TextPanel.css');
+
+/* ElementsPanel */
+@import url('./components/PageEditor/SidebarEditor/ElementsPanel/ElementsPanel.css');
+
+/* DownloadsPanel */
+@import url('./components/PageEditor/SidebarEditor/DownloadsPanel/DownloadsPanel.css');
+
+/* CertificateEditor */
+@import url('./components/PageEditor/CertificateEditor/CertificateEditor.css');
+
+/* TextBlock */
+@import url('./components/PageEditor/CertificateEditor/TextBlock/TextBlock.css');
+
+/* FioTable */
+@import url('./components/PageEditor/CertificateEditor/FioTable/FioTable.css');
+
+/* ElementFiles */
+@import url('./components/PageEditor/CertificateEditor/ElementFiles/ElementFiles.css');
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: 'Wix Madefor Display', 'Inter', 'Times New Roman', Times, serif;
+	font-style: normal;
+	font-weight: 400;
+}
