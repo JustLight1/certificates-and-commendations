@@ -1,9 +1,9 @@
+<a id="anchor"></a>
 <div align=center>
-  
-  # [Foodgram](https://foodgram.servehttp.com/) продуктовый помощник
-  
-  [![Foodgram_CI/CD](https://github.com/JustLight1/foodgram-project-react/workflows/Foodgram_CI/CD/badge.svg)](https://github.com/JustLight1/kittygram_final/workflows/CICD-Kittygram/badge.svg)
-  
+
+  # Приложение "Генератор грамот" 
+
+  ![example workflow](https://github.com/certificates-and-commendations/Back/actions/workflows/certificates_deploy.yml/badge.svg)
   ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
   ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
   ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
@@ -14,86 +14,311 @@
   
   ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 
-
 </div>
 
 ## Описание проекта
 
+Проект выпускников _Яндекс.Практикум_ 
 
-Foodgram - онлайн-сервис, представляющий собой продуктового помощника как для начинающих кулинаров, так и для опытных гурманов. В рамках этого сервиса пользователи могут делиться своими рецептами, подписываться на публикации других пользователей, добавлять понравившиеся рецепты в список избранного, а также скачивать сводный список продуктов в формате .pdf перед походом в магазин для приготовления выбранных блюд.
+Благодаря этому проекту можно создавать грамоты, дипломы, благодарности и сертификаты. Наш онлайн-редактор позволяет создавать документы на основе предустановленных шаблонов, а также дает возможность загружать собственные фоны для будущих грамот, дипломов и т.д. 
+
+Широкий набор средств редактирования включает:
+- добавление неограниченного количества текстовых полей;
+- выбор шрифта, размера, цвета, стилей для шрифта;
+- замена фона документа на любом этапе редактирования;
+
+Пользователям доступна возможность загружать собственные шрифты или использовать предустановленные. Также реализована функция добавления изображения печатей, штампов, подписей, факсимиле в формате PNG. 
+
+Кроме того, пользователю доступна функция по созданию сразу нескольких одинаковых документов  для разных получателей (автогенерация нескольких документов с разными ФИО). 
+
+В Личном кабинете пользователя отражается информация о всех документах, которые он когда-либо редактировал, а также список с избранными документами. 
+
+Для доступа к основному функционалу требуется пройти бесплатную регистрацию. Реализована функция подтверждения почты пользователя и восстановления пароля. 
 
 
-## Подготовка сервера и деплой проекта
+### Технологии
 
-1. Создать директорию foodgram/ в домашней директории сервера.
+Python 3.9.10
 
-2. В корне папки foodgram поместить файл .env, заполнить его по шаблону
+Django 3.2
 
-  ```env
-    ALLOWED_HOSTS=<Ваш домен>, <IP сервера>
-    DEBUG=False
+djangorestframework 3.14.0
 
-    POSTGRES_USER=...
-    POSTGRES_PASSWORD=...
-    POSTGRES_DB=...
-    
-    DB_HOST=...
-    DB_PORT=...
+### Инфраструктура: 
+* Docker
+* NGINX
+* GUNICORN
+* база даннных POSTGRESQL
+
+### Основные библиотеки:
+
+- аутентификация Djoser
+- документация drf-yasg
+- инструменты Google Api для подстверждения аутентификации пользователей
+- работа с изображениями Pillow
+- генерация PDF reportlab
+- автоопределение доминантных цветов шаблона на основе методов sklearn.cluster (KMeans и KDTree)
+- codecs для парсинга CSV 
+
+
+<details>
+<summary>
+<h4>Запуск проекта:</h4>
+</summary>
+
+<br>
+
+~~~
+склонировать проект git clone https://github.com/certificates-and-commendations/Back
+~~~
+- При первом запуске для функционирования проекта обязательно установить виртуальное окружение, установить зависимости,  выполнить миграции:
+
+```
+python -m venv venv
+
+source venv/Scripts/activate
+
+python -m pip install --upgrade pip
+```
+- Установите зависимости из файла requirements.txt
+
+```
+pip install -r requirements.txt
+```
+- Выполните миграции БД. Из папки backend с файлом manage.py выполните команду:
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+- Для создания суперюзера из папки backend с файлом manage.py выполните команду:
+```
+python manage.py createsuperuser
 ```
 
-4. Установить Nginx и настроить конфигурацию так, чтобы все запросы шли в контейнеры на порт 9090.
+- Для загрузки категорий из папки backend с файлом manage.py выполните команду:
+```
+python manage.py add-category
+```
+- Для загрузки дефолтных данных в базу из папки backend с файлом manage.py выполните команду:
+```
+python manage.py add_fonts
+```
+- Для запуска сервера из папки backend с файлом manage.py выполните команду:
 
-    ```bash
-        sudo apt install nginx -y 
-        sudo nano etc/nginx/sites-enabled/default
-    ```
-    
-    Пример конфигурация nginx
-    ```bash
-        server {
-            server_name <Ваш IP> <Домен вашего сайта>;
-            server_tokens off;
-            client_max_body_size 20M;
-        
-            location / {
-                proxy_set_header Host $http_host;
-                proxy_pass http://127.0.0.1:9000;
+```
+python manage.py runserver
+```
+</details>
+
+### **API для сервиса "Генератор гармот"** позволяет работать со следующими сущностями:
+
+- Users - Пользователи (зарегистрированные юзеры получают доступ к полному функционалу редактора)
+
+- Documents- Основная сущность - главный продукт приложения. 
+Имеет  атрибуты:
+    - title - название шаблона формируется по названию JPG-изображения подложки
+    - background (подложка в JPG)
+    - texts - текстовые поля на документе (Название, ФИО и  др) имеют размер, стиль, шрифт. 
+    - elements - ImageField (печати, факсимиле), связано с моделью Element
+    - color - цвет подложки, который расчитывается автоматически. Функция фильтрации шаблонов по цветам. 
+    - is_horizontal - вертикальное илти горизонтальное расположение подложки документа
+    - category - категория документа (грамота, сертификат, благодарность, диплом)
+
+- TextField - сущность для отображения поле texts в Документе
+    - text - текст 
+    - coordinate_y, coordinate_x - координаты для расположения на документе
+    - font - поле, связанное с моделью шрифтов Font
+    - font_size, font_color, text_decoration, align  - поля для стилизации текста
+
+- Element - сущность для загрузки и отображения печатей, подписей и т.д.
+- Favourite - избранные шаблоны (добавление/удаление)
+
+Предустановленные документы: генерируются по кастомной команде add_fonts, доступны для редактирования пользователями.
+
+<details>
+<summary>
+<h4>API. Примеры запросов и ответов (в формате json):</h4>
+</summary>
+
+<br>
+
+ Регистрация нового пользователя:
+POST: /api/auth/regist/ (отправляет письмо с кодом на почту)
+~~~
+{
+  "password": "string",
+  "email": "string"
+}
+~~~
+Изменение пароля:
+POST: /api/auth/confirm/ (возвращает токен)
+~~~
+{
+  "code": int
+}
+~~~
+Получение списка предустановленных шаблонов (токен не требуется):
+GET: /api/documents/
+~~~
+{
+  "count": 10,
+    "next": "http://certificates.acceleratorpracticum.ru/api/documents/?page=2",
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "title": "Шаблон 1",
+            "thumbnail": "http://certificates.acceleratorpracticum.ru/media/thumbnails/template00.jpg",
+            "category": 4,
+            "color": [
+                3,
+                7
+            ],
+            "is_horizontal": false,
+            "is_favourite": false
         }
-    ```
-    
-    > При необходимости настройте SSL-соединение
+    ]
+}
+~~~
 
-5. Установить docker и docker-compose
-   
-``` bash
-    sudo apt update
-    sudo apt install curl
-    curl -fSL https://get.docker.com -o get-docker.sh
-    sudo sh ./get-docker.sh
-    sudo apt-get install docker-compose-plugin     
+Создать новый документ:
+POST: /api/documents/
+~~~
+{
+  "title": "string",
+  "category": 0,
+  "is_horizontal": true,
+  "texts": [
+    {
+      "text": "string",
+      "coordinate_y": 0,
+      "coordinate_x": 0,
+      "font": {
+        "font": "string",
+        "is_bold": true,
+        "is_italic": true
+      },
+      "font_size": 8,
+      "font_color": "string",
+      "text_decoration": "underline",
+      "align": "left"
+    }
+  ],
+  "elements": [
+    {
+      "image": "string"
+      "coordinate_y": 0,
+      "coordinate_x": 0
+    }
+  ]
+}
+~~~
+Загрузить список ФИО в CSV формате :
+POST: /api/documents/upload/
+~~~
+{
+  "id": 0,
+  "title": "string",
+  "thumbnail": "http://example.com",
+  "category": 0,
+  "color": [
+    0
+  ],
+  "is_horizontal": true,
+  "is_favourite": "string"
+}
+~~~
+
+Скачать документ :
+GET: /api/documents/{id}/download/
+~~~
+{
+  "id": 0,
+  "user": 0,
+  "title": "string",
+  "background": "http://example.com",
+  "category": 0,
+  "color": [
+    0
+  ],
+  "is_horizontal": true,
+  "texts": [
+    {
+      "id": 0,
+      "text": "string",
+      "coordinate_y": 0,
+      "coordinate_x": 0,
+      "font": {
+        "font": "string",
+        "is_bold": true,
+        "is_italic": true
+      },
+      "font_size": 8,
+      "font_color": "string",
+      "text_decoration": "underline",
+      "align": "left"
+    }
+  ],
+  "elements": [
+    {
+      "coordinate_y": 0,
+      "coordinate_x": 0,
+      "image": "http://example.com"
+    }
+  ]
+}
+~~~
+
+Авторизованным пользователям  доступны все действия с документами, авторами которых они являются. 
+
+Профидль авторизованного пользователя :
+GET: /api/profile/
+~~~
+{
+  "count": 0,
+  "next": "http://example.com",
+  "previous": "http://example.com",
+  "results": [
+    {
+      "id": 0,
+      "thumbnail": "http://example.com",
+      "is_favourite": "string"
+    }
+  ]
+}
+~~~
+Добавить документ в избранное:
+POST: /api/documents/{id}/favourite/
+~~~
+{
+  "user": 0,
+  "document": 0
+}
+~~~
+
+</details>
+
+<details>
+<summary>
+<h4>_Шаблон наполнения env-файла_:</h4>
+</summary>
+
+<br>
+
+```env
+  DEBUG=False
+  SECRET_KEY=
+
+  DB_ENGINE=django.db.backends.postgresql
+  DB_NAME=postgres
+  POSTGRES_USER=...
+  POSTGRES_PASSWORD=...
+
+  DB_HOST=...
+  DB_PORT=...
 ```
 
-4. Добавить в Secrets GitHub Actions данного репозитория на GitHub переменные окружения
-
-``` env
-    DOCKER_USERNAME=<имя пользователя DockerHub>
-    DOCKER_PASSWORD=<пароль от DockerHub>
-    
-    USER=<username для подключения к удаленному серверу>
-    HOST=<ip сервера>
-    PASSPHRASE=<пароль для сервера, если он установлен>
-    SSH_KEY=<ваш приватный SSH-ключ>
-    
-    TELEGRAM_TO=<id вашего Телеграм-аккаунта>
-    TELEGRAM_TOKEN=<токен вашего бота>
-```
-5. Запустить workflow проекта выполнив команды:
-
-```bash
-  git add .
-  git commit -m ''
-  git push
-```
+</details>
 
 ## Сервис разрабатывали:
 <details>
@@ -121,3 +346,66 @@ Foodgram - онлайн-сервис, представляющий собой п
 [![Telegram Badge](https://img.shields.io/badge/-tvladislav94-blue?style=social&logo=telegram&link=https://t.me/tvladislav94)](https://t.me/tvladislav94) [![Gmail Badge](https://img.shields.io/badge/vladislav-login94@yandex.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:vladislav-login94@yandex.ru)](mailto:vladislav-login94@yandex.ru)
 
 </details>
+
+<details>
+<summary>
+<h4>Frontend:</h4>
+</summary>
+
+<br>
+
+**Антонов Даниил** 
+
+[![Telegram Badge](https://img.shields.io/badge/-POCTIK999-blue?style=social&logo=telegram&link=https://t.me/POCTIK999)](https://t.me/POCTIK999) [![Gmail Badge](https://img.shields.io/badge/cybiran_ez@mail.ru-0052CC?style=flat&logo=Mail.ru&logoColor=white&link=mailto:cybiran_ez@mail.ru)](mailto:cybiran_ez@mail.ru)
+
+**Смиткевич Олег**
+
+[![Telegram Badge](https://img.shields.io/badge/-OGSmit-blue?style=social&logo=telegram&link=https://t.me/OGSmit)](https://t.me/OGSmit) [![Gmail Badge](https://img.shields.io/badge/og88tuf15@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:og88tuf15@gmail.com)](mailto:og88tuf15@gmail.com)
+
+**Корнюхов Владислав**
+
+[![Telegram Badge](https://img.shields.io/badge/-govard9-blue?style=social&logo=telegram&link=https://t.me/govard9)](https://t.me/govard9) [![Gmail Badge](https://img.shields.io/badge/web-supsu@yandex.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:web-supsu@yandex.ru)](mailto:web-supsu@yandex.ru)
+
+**Жеребор Андрей** 
+
+[![Telegram Badge](https://img.shields.io/badge/-andreyzh19-blue?style=social&logo=telegram&link=https://t.me/andreyzh19)](https://t.me/andreyzh19) [![Gmail Badge](https://img.shields.io/badge/andreizherebor@yandex.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:andreizherebor@yandex.ru)](mailto:andreizherebor@yandex.ru)
+
+
+**Маркова Юлия** 
+
+[![Telegram Badge](https://img.shields.io/badge/-markowayulia-blue?style=social&logo=telegram&link=https://t.me/markowayulia)](https://t.me/markowayulia) [![Gmail Badge](https://img.shields.io/badge/markowayulia@yandex.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:markowayulia@yandex.ru)](mailto:markowayulia@yandex.ru)
+
+</details>
+
+<details>
+<summary>
+<h4>Дизайнер UI/UX:</h4>
+</summary>
+
+<br>
+
+**Егерева Кристина** 
+
+[![Telegram Badge](https://img.shields.io/badge/-kristina_egereva-blue?style=social&logo=telegram&link=https://t.me/kristina_egereva)](https://t.me/kristina_egereva) [![Gmail Badge](https://img.shields.io/badge/kris.gordeeva95@yandex.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:kris.gordeeva95@yandex.ru)](mailto:kris.gordeeva95@yandex.ru)
+
+</details>
+
+
+<details>
+<summary>
+<h4>Project manager:</h4>
+</summary>
+
+<br>
+
+**Алсу Хузиева**
+
+[![Telegram Badge](https://img.shields.io/badge/-alsuxyz-blue?style=social&logo=telegram&link=https://t.me/alsuxyz)](https://t.me/alsuxyz) [![Gmail Badge](https://img.shields.io/badge/xyz.alsu@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:xyz.alsu@gmail.com)](mailto:xyz.alsu@gmail.com)
+
+**Мишина Анастасия**
+
+[![Telegram Badge](https://img.shields.io/badge/-mishinanas-blue?style=social&logo=telegram&link=https://t.me/mishinanas)](https://t.me/mishinanas) [![Gmail Badge](https://img.shields.io/badge/anastasmishina94@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:anastasmishina94@gmail.com)](mailto:anastasmishina94@gmail.com)
+
+</details>
+
+_[Вверх](#anchor)_
