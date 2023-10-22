@@ -3,7 +3,7 @@
 
 ## Test
 
-- **Скопируйте <a href="https://github.com/certificates-and-commendations/frontend">frontend</a> репозиторий**
+- **Скопируйте <a href="https://github.com/JustLight1/certificates-and-commendations/tree/main/frontend">frontend</a> репозиторий**
 - **Команды для запуска "npm install", "npm run start"**
 
 ## Описание приложения
@@ -49,13 +49,6 @@ https://www.figma.com/file/lET38RfIXulKssgo1hB0hI/Грамоты?type=design&nod
 
 ## Контакты:
 
-<details>
-<summary>
-<h4>Frontend</h4>
-</summary>
-
-<br>
-
 **Антонов Даниил** 
 
 [![Telegram Badge](https://img.shields.io/badge/-POCTIK999-blue?style=social&logo=telegram&link=https://t.me/POCTIK999)](https://t.me/POCTIK999) [![Gmail Badge](https://img.shields.io/badge/cybiran_ez@mail.ru-0052CC?style=flat&logo=Mail.ru&logoColor=white&link=mailto:cybiran_ez@mail.ru)](mailto:cybiran_ez@mail.ru)
@@ -76,5 +69,3 @@ https://www.figma.com/file/lET38RfIXulKssgo1hB0hI/Грамоты?type=design&nod
 **Маркова Юлия** 
 
 [![Telegram Badge](https://img.shields.io/badge/-markowayulia-blue?style=social&logo=telegram&link=https://t.me/markowayulia)](https://t.me/markowayulia) [![Gmail Badge](https://img.shields.io/badge/markowayulia@yandex.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:markowayulia@yandex.ru)](mailto:markowayulia@yandex.ru)
-
-</details>

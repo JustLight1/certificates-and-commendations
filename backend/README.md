@@ -322,13 +322,6 @@ POST: /api/documents/{id}/favourite/
 
 ## Контакты:
 
-<details>
-<summary>
-<h4>Backend</h4>
-</summary>
-
-<br>
-
 **Форов Александр** 
 
 [![Telegram Badge](https://img.shields.io/badge/-Light_88-blue?style=social&logo=telegram&link=https://t.me/Light_88)](https://t.me/Light_88) [![Gmail Badge](https://img.shields.io/badge/forov.py@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:forov.py@gmail.com)](mailto:forov.py@gmail.com)
@@ -345,5 +338,3 @@ POST: /api/documents/{id}/favourite/
 **Тутункин Владислав** 
 
 [![Telegram Badge](https://img.shields.io/badge/-tvladislav94-blue?style=social&logo=telegram&link=https://t.me/tvladislav94)](https://t.me/tvladislav94) [![Gmail Badge](https://img.shields.io/badge/vladislav-login94@yandex.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:vladislav-login94@yandex.ru)](mailto:vladislav-login94@yandex.ru)
-
-</details>
