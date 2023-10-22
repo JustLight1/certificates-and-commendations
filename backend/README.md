@@ -1,9 +1,21 @@
 <a id="anchor"></a>
-# Приложение "Генератор грамот" 
+<div align=center>
 
-![example workflow](https://github.com/certificates-and-commendations/Back/actions/workflows/certificates_deploy.yml/badge.svg)
+  # Приложение Генератор грамот
 
-## Описание
+  ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+  ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
+  ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+
+  ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+  ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
+  ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+  
+  ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+
+</div>
+
+## Описание проекта
 
 Проект выпускников _Яндекс.Практикум_ 
 
@@ -47,9 +59,17 @@ djangorestframework 3.14.0
 - автоопределение доминантных цветов шаблона на основе методов sklearn.cluster (KMeans и KDTree)
 - codecs для парсинга CSV 
 
-### Запуск проекта
+## Запуск проекта:
+
+<details>
+<summary>
+<h4>Backend</h4>
+</summary>
+
+<br>
+
 ~~~
-склонировать проект git clone https://github.com/certificates-and-commendations/Back
+склонировать проект git clone git@github.com:JustLight1/certificates-and-commendations.git
 ~~~
 - При первом запуске для функционирования проекта обязательно установить виртуальное окружение, установить зависимости,  выполнить миграции:
 
@@ -88,6 +108,7 @@ python manage.py add_fonts
 ```
 python manage.py runserver
 ```
+</details>
 
 ### **API для сервиса "Генератор гармот"** позволяет работать со следующими сущностями:
 
@@ -114,175 +135,215 @@ python manage.py runserver
 
 Предустановленные документы: генерируются по кастомной команде add_fonts, доступны для редактирования пользователями.
 
-**API. Примеры запросов и ответов (в формате json)**
+<details>
+<summary>
+<h4>API. Примеры запросов и ответов (в формате json)</h4>
+</summary>
+
+<br>
 
  Регистрация нового пользователя:
 POST: /api/auth/regist/ (отправляет письмо с кодом на почту)
-~~~
-{
-  "password": "string",
-  "email": "string"
-}
-~~~
+```json
+  {
+    "password": "string",
+    "email": "string"
+  }
+```
 Изменение пароля:
 POST: /api/auth/confirm/ (возвращает токен)
-~~~
-{
-  "code": int
-}
-~~~
+```json
+  {
+    "code": int
+  }
+```
 Получение списка предустановленных шаблонов (токен не требуется):
 GET: /api/documents/
-~~~
-{
-  "count": 10,
-    "next": "http://certificates.acceleratorpracticum.ru/api/documents/?page=2",
-    "previous": null,
-    "results": [
-        {
-            "id": 1,
-            "title": "Шаблон 1",
-            "thumbnail": "http://certificates.acceleratorpracticum.ru/media/thumbnails/template00.jpg",
-            "category": 4,
-            "color": [
-                3,
-                7
-            ],
-            "is_horizontal": false,
-            "is_favourite": false
-        }
-    ]
-}
-~~~
+```json
+  {
+    "count": 10,
+      "next": "http://certificates.acceleratorpracticum.ru/api/documents/?page=2",
+      "previous": null,
+      "results": [
+          {
+              "id": 1,
+              "title": "Шаблон 1",
+              "thumbnail": "http://certificates.acceleratorpracticum.ru/media/thumbnails/template00.jpg",
+              "category": 4,
+              "color": [
+                  3,
+                  7
+              ],
+              "is_horizontal": false,
+              "is_favourite": false
+          }
+      ]
+  }
+```
 
 Создать новый документ:
 POST: /api/documents/
-~~~
-{
-  "title": "string",
-  "category": 0,
-  "is_horizontal": true,
-  "texts": [
-    {
-      "text": "string",
-      "coordinate_y": 0,
-      "coordinate_x": 0,
-      "font": {
-        "font": "string",
-        "is_bold": true,
-        "is_italic": true
-      },
-      "font_size": 8,
-      "font_color": "string",
-      "text_decoration": "underline",
-      "align": "left"
-    }
-  ],
-  "elements": [
-    {
-      "image": "string"
-      "coordinate_y": 0,
-      "coordinate_x": 0
-    }
-  ]
-}
-~~~
+```json
+  {
+    "title": "string",
+    "category": 0,
+    "is_horizontal": true,
+    "texts": [
+      {
+        "text": "string",
+        "coordinate_y": 0,
+        "coordinate_x": 0,
+        "font": {
+          "font": "string",
+          "is_bold": true,
+          "is_italic": true
+        },
+        "font_size": 8,
+        "font_color": "string",
+        "text_decoration": "underline",
+        "align": "left"
+      }
+    ],
+    "elements": [
+      {
+        "image": "string",
+        "coordinate_y": 0,
+        "coordinate_x": 0
+      }
+    ]
+  }
+```
 Загрузить список ФИО в CSV формате :
 POST: /api/documents/upload/
-~~~
-{
-  "id": 0,
-  "title": "string",
-  "thumbnail": "http://example.com",
-  "category": 0,
-  "color": [
-    0
-  ],
-  "is_horizontal": true,
-  "is_favourite": "string"
-}
-~~~
+```json
+  {
+    "id": 0,
+    "title": "string",
+    "thumbnail": "http://example.com",
+    "category": 0,
+    "color": [
+      0
+    ],
+    "is_horizontal": true,
+    "is_favourite": "string"
+  }
+```
 
 Скачать документ :
 GET: /api/documents/{id}/download/
-~~~
-{
-  "id": 0,
-  "user": 0,
-  "title": "string",
-  "background": "http://example.com",
-  "category": 0,
-  "color": [
-    0
-  ],
-  "is_horizontal": true,
-  "texts": [
-    {
-      "id": 0,
-      "text": "string",
-      "coordinate_y": 0,
-      "coordinate_x": 0,
-      "font": {
-        "font": "string",
-        "is_bold": true,
-        "is_italic": true
-      },
-      "font_size": 8,
-      "font_color": "string",
-      "text_decoration": "underline",
-      "align": "left"
-    }
-  ],
-  "elements": [
-    {
-      "coordinate_y": 0,
-      "coordinate_x": 0,
-      "image": "http://example.com"
-    }
-  ]
-}
-~~~
+```json
+  {
+    "id": 0,
+    "user": 0,
+    "title": "string",
+    "background": "http://example.com",
+    "category": 0,
+    "color": [
+      0
+    ],
+    "is_horizontal": true,
+    "texts": [
+      {
+        "id": 0,
+        "text": "string",
+        "coordinate_y": 0,
+        "coordinate_x": 0,
+        "font": {
+          "font": "string",
+          "is_bold": true,
+          "is_italic": true
+        },
+        "font_size": 8,
+        "font_color": "string",
+        "text_decoration": "underline",
+        "align": "left"
+      }
+    ],
+    "elements": [
+      {
+        "coordinate_y": 0,
+        "coordinate_x": 0,
+        "image": "http://example.com"
+      }
+    ]
+  }
+```
 
 Авторизованным пользователям  доступны все действия с документами, авторами которых они являются. 
 
 Профидль авторизованного пользователя :
 GET: /api/profile/
-~~~
-{
-  "count": 0,
-  "next": "http://example.com",
-  "previous": "http://example.com",
-  "results": [
-    {
-      "id": 0,
-      "thumbnail": "http://example.com",
-      "is_favourite": "string"
-    }
-  ]
-}
-~~~
+```json
+  {
+    "count": 0,
+    "next": "http://example.com",
+    "previous": "http://example.com",
+    "results": [
+      {
+        "id": 0,
+        "thumbnail": "http://example.com",
+        "is_favourite": "string"
+      }
+    ]
+  }
+```
 Добавить документ в избранное:
 POST: /api/documents/{id}/favourite/
-~~~
-{
-  "user": 0,
-  "document": 0
-}
-~~~
-
-
-
-_Шаблон наполнения env-файла_
-
-```
-DB_ENGINE=django.db.backends.postgresql
-DB_NAME=postgres
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-DB_HOST=db
-DB_PORT=5432
-SECRET_KEY=
-DEBUG=False
+```json
+  {
+    "user": 0,
+    "document": 0
+  }
 ```
 
-_[Вверх](#anchor)_
+</details>
+
+<details>
+<summary>
+<h4>Шаблон наполнения env-файла</h4>
+</summary>
+
+<br>
+
+```env
+  DEBUG=False
+  SECRET_KEY=
+
+  DB_ENGINE=django.db.backends.postgresql
+  DB_NAME=postgres
+  POSTGRES_USER=...
+  POSTGRES_PASSWORD=...
+
+  DB_HOST=...
+  DB_PORT=...
+```
+
+</details>
+
+## Контакты:
+
+<details>
+<summary>
+<h4>Backend</h4>
+</summary>
+
+<br>
+
+**Форов Александр** 
+
+[![Telegram Badge](https://img.shields.io/badge/-Light_88-blue?style=social&logo=telegram&link=https://t.me/Light_88)](https://t.me/Light_88) [![Gmail Badge](https://img.shields.io/badge/forov.py@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:forov.py@gmail.com)](mailto:forov.py@gmail.com)
+
+**Ванданова Мария**
+
+[![Telegram Badge](https://img.shields.io/badge/-vandanova_maria-blue?style=social&logo=telegram&link=https://t.me/vandanova_maria)](https://t.me/vandanova_maria) [![Gmail Badge](https://img.shields.io/badge/handarkin@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:handarkin@gmail.com)](mailto:handarkin@gmail.com)
+
+**Калинина Юлия**
+
+[![Telegram Badge](https://img.shields.io/badge/-good_old_user-blue?style=social&logo=telegram&link=https://t.me/good_old_user)](https://t.me/good_old_user) [![Gmail Badge](https://img.shields.io/badge/deamanda@ya.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:deamanda@ya.ru)](mailto:deamanda@ya.ru)
+
+
+**Тутункин Владислав** 
+
+[![Telegram Badge](https://img.shields.io/badge/-tvladislav94-blue?style=social&logo=telegram&link=https://t.me/tvladislav94)](https://t.me/tvladislav94) [![Gmail Badge](https://img.shields.io/badge/vladislav-login94@yandex.ru-FFCC00?style=flat&logo=ycombinator&logoColor=red&link=mailto:vladislav-login94@yandex.ru)](mailto:vladislav-login94@yandex.ru)
+
+</details>
